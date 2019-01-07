@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            background: rgb(242,242,242);
+        }
+        a{
+            text-decoration: none;
+            color: #000;
+        }
+        .cale{
+            margin: 20px auto;
+            width: 1200px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            transition:box-shadow 0.5s;
+            -moz-transition:box-shadow 0.5s;
+            -webkit-transition:box-shadow 0.5s;
+            -o-transition:box-shadow 0.5s;
+        }
+        .cale:hover{
+            box-shadow: 4px 4px 20px gray ;
+        }
+        .calendar{
+            padding: 20px;
+            width:280px;
+            height:380px;
+            background:#F3EDF3;
+        }
+        .title{
+            margin-top: 10px;
+            height: 30px;
+            line-height: 30px;
+            position: relative;
+            text-align: center;
+        }
+        .title .month{
+            color: #803A8A;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        .title .year{
+            font-weight: bold;
+        }
+        .title span{
+            margin: 0 20px;
+        }
+        .title a{
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            top: 60%;
+            margin-top: -10px;
+            box-shadow: inset 0 2px 0 0 gray,inset -2px 0 0 0 gray;
+            -moz-box-shadow: inset 0 2px 0 0 gray,inset -2px 0 0 0 gray;
+            -webkit-box-shadow: inset 0 2px 0 0 gray,inset -2px 0 0 0 gray;
+            -o-box-shadow: inset 0 2px 0 0 gray,inset -2px 0 0 0 gray;
+        }
+        .prev{
+            left: 10px;
+            transform: rotate(-135deg);
+            -webkit-transform: rotate(-135deg);
+            -moz-transform: rotate(-135deg);
+            -o-transform: rotate(-135deg);
+        }
+        .next{
+            right: 10px;
+            transform: rotate(45deg);
+        }
+        .body{
+            margin-top: 10px;
+        }
+        .body-list ul{
+            width:100%;
+            font-family:arial;
+            font-weight:bold;
+            font-size:14px;
+        }
+        .body-list ul li{
+            width:40px;
+            height:40px;
+            border-radius: 40px;
+            line-height:40px;
+            text-align: center;
+            list-style-type:none;
+            display:block;
+            box-sizing:border-box;
+            float:left;
+            margin-bottom: 10px;
+        }
+        .lightgrey{
+            color: #a8a8a8 !important; /*浅灰色*/
+        }
+        .black{
+            color: #000000 !important; /*深灰色*/
+        }
+        .today{
+            background-color: #803A8A!important;
+            color: white!important;
+        }
+        .purple{
+            color: #803A8A;
+        }
+
+        .content {
+            position: relative;
+            width: 880px;
+            height: auto;
+        }
+        .info_title{
+            position: absolute;
+            left: 40px;
+            top: 40px;
+            height: 20px;
+            width: 790px;
+        }
+        .line_column{
+            position: absolute;
+            left: 440px;
+            top: 80px;
+            height: 300px;
+            border: 1px solid #803A8A;
+        }
+        .info_title span,.info_title>div{
+            display: inline-block;
+        }
+        .info_title span{
+            float: left;
+            color: #803A8A;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .info_title>div{
+            float: right;
+
+        }
+        .info_title>div a{
+            margin-left: 10px;
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            box-shadow: inset 0 2px 0 0 #803A8A,inset -2px 0 0 0 #803A8A;
+            -webkit-box-shadow: inset 0 2px 0 0 #803A8A,inset -2px 0 0 0 #803A8A;
+            -moz-box-shadow: inset 0 2px 0 0 #803A8A,inset -2px 0 0 0 #803A8A;
+            -o-box-shadow: inset 0 2px 0 0 #803A8A,inset -2px 0 0 0 #803A8A;
+        }
+        .content > ul {
+            list-style: none;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .content > ul > li {
+            width: 360px;
+            height: 340px;
+            padding: 40px;
+            background-color: #fff;
+        }
+        .content > ul > li > h3 {
+            color: #333333;
+            font-size: 18px;
+            margin-bottom: 20px;
+            margin-top: 40px;
+        }
+        .content > ul > li > h5,
+        .content > ul > li p {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+            overflow: hidden;
+            font-size: 14px;
+            color: #666666;
+            margin: 16px 0;
+        }
+        .content > ul > li > p {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 4;
+            overflow: hidden;
+        }
+        .content > ul > li .details {
+            width: 110px;
+            height: 34px;
+            line-height: 34px;
+            text-align: center;
+            margin-top: 40px;
+            font-size: 16px;
+            font-weight: bold;
+            border: 1px solid #333333;
+            box-shadow: 2px 2px 6px;
+            -webkit-box-shadow: 2px 2px 6px;
+            -moz-box-shadow: 2px 2px 6px;
+            -o-box-shadow: 2px 2px 6px;
+        }
+    </style>
+</head>
+<body>
+<div class="cale">
+    <div class="calendar">
+        <div class="title">
+            <span class="month" id="calendar-title">Month</span>
+            <span class="year" id="calendar-year">Year</span>
+            <a href="" id="prev" class="prev"></a>
+            <a href="" id="next" class="next"></a>
+        </div>
+        <div class="body">
+            <div class="body-list">
+                <ul>
+                    <li>一</li>
+                    <li>二</li>
+                    <li>三</li>
+                    <li>四</li>
+                    <li>五</li>
+                    <li>六</li>
+                    <li>日</li>
+                </ul>
+            </div>
+            <div class="body-list">
+                <ul id="days"></ul>
+            </div>
+        </div>
+    </div>
+    <div class="cale_cont">
+        <div class="content">
+            <div class="info_title">
+                <span class="purple">活动信息 +</span>
+                <div>
+                    <a href="javascript:;" class="prev"></a>
+                    <a href="javascript:;" class="next"></a>
+                </div>
+            </div>
+            <div class="line_column"></div>
+            <ul>
+                <li>
+                    <h3><span class="purple">预告</span> | 2018 “亦师亦友”职业导师项目闭幕仪式暨经管校友聚会</h3>
+                    <h5>时间：2018.5-2018.8.23</h5>
+                    <h5>地点：深圳</h5>
+                    <p>简介：2018“亦师亦友”职业导师项目由经管学院职业发展中心精心打造，旨在为导师和准毕业生提旨在为导师和准毕业生提2018“亦师亦友”职业导师项目由经管学院职业发展中心精心打造，旨在为导师和准毕业生提旨在为导师和准毕业生提</p>
+                    <div class="details"><a href="javascript:;">查看详情</a></div>
+                </li>
+                <li>
+                    <h3><span class="purple">回顾</span> | 2018 “亦师亦友”职业导师项目闭幕仪式暨经管校友聚会</h3>
+                    <h5>时间：2018.5-2018.8.23</h5>
+                    <h5>地点：深圳</h5>
+                    <p>简介：2018“亦师亦友”职业导师项目由经管学院职业发展中心精心打造，旨在为导师和准毕业生提旨在为导师和准毕业生提2018“亦师亦友”职业导师项目由经管学院职业发展中心精心打造，旨在为导师和准毕业生提旨在为导师和准毕业生提</p>
+                    <div class="details"><a href="javascript:;">查看详情</a></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    var month_olympic = [31,29,31,30,31,30,31,31,30,31,30,31];//闰年
+    var month_normal = [31,28,31,30,31,30,31,31,30,31,30,31];//平年
+    var month_name = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+    var holder = document.getElementById("days");
+    var prev = document.getElementById("prev");
+    var next = document.getElementById("next");
+    var ctitle = document.getElementById("calendar-title");
+    var cyear = document.getElementById("calendar-year");
+
+    var my_date = new Date();
+    var my_year = my_date.getFullYear();
+    var my_month = my_date.getMonth();
+    var my_day = my_date.getDate();
+
+    //获取某年某月第一天是星期几
+    function dayStart(month, year) {
+        var tmpDate = new Date(year, month, 1);
+        return (tmpDate.getDay());
+    }
+
+    //计算某年是不是闰年，通过求年份除以4的余数即可
+    function daysMonth(month, year) {
+        var tmp = year % 4;
+        if (tmp == 0) {
+            return (month_olympic[month]);
+        } else {
+            return (month_normal[month]);
+        }
+    }
+
+    function refreshDate(){
+        var str = "";
+        var totalDay = daysMonth(my_month, my_year); //获取该月总天数
+        var firstDay = dayStart(my_month, my_year); //获取该月第一天是星期几
+        var myclass;
+        for(var i=1; i<firstDay; i++){
+            str += "<li></li>"; //为起始日之前的日期创建空白节点
+        }
+        for(var i=1; i<=totalDay; i++){
+            if((i<my_day && my_year==my_date.getFullYear() && my_month==my_date.getMonth()) || my_year<my_date.getFullYear() || ( my_year==my_date.getFullYear() && my_month<my_date.getMonth())){
+                myclass = " class='lightgrey'"; //当该日期在今天之前时，以浅灰色字体显示
+            }else if (i==my_day && my_year==my_date.getFullYear() && my_month==my_date.getMonth()){
+                myclass = " class='today'"; //当天日期突出显示
+            }else{
+                myclass = " class='black'"; //当该日期在今天之后时，以黑色字体显示
+            }
+            str += "<li"+myclass+">"+"<span'>"+ i +"</span>"+"</li>"; //创建日期节点
+        }
+        holder.innerHTML = str; //设置日期显示
+        ctitle.innerHTML = month_name[my_month]; //设置英文月份显示
+        cyear.innerHTML = my_year; //设置年份显示
+    }
+    refreshDate();
+
+    prev.onclick = function(e){
+        e.preventDefault();
+        my_month--;
+        if(my_month<0){
+            my_year--;
+            my_month = 11;
+        }
+        refreshDate();
+    }
+    next.onclick = function(e){
+        e.preventDefault();
+        my_month++;
+        if(my_month>11){
+            my_year++;
+            my_month = 0;
+        }
+        refreshDate();
+    }
+</script>
+</body>
+</html>
